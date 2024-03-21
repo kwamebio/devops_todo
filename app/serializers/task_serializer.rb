@@ -1,6 +1,6 @@
 class TaskSerializer
   include JSONAPI::Serializer
-  attributes :title, :body
+  attributes :title, :body, :id
 
   belongs_to :user
 end
