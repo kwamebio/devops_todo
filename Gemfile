@@ -14,6 +14,10 @@ gem 'pg', '~> 1.1'
 gem 'jsonapi-serializer'
 gem 'puma', '>= 5.0'
 
+gem 'email_address', '~> 0.2.4'
+
+gem 'jwt'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

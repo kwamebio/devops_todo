@@ -29,6 +29,6 @@ module DevopsTodo
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.factory_bot.definition_file_paths = ['custom/factories']
+    # config.factory_bot.definition_file_paths = ['custom/factories']
   end
 end
