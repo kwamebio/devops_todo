@@ -1,5 +1,4 @@
 class Api::V1::TasksController < ApplicationController
-
   def index
     @tasks = Task.all
     render json: TaskSerializer.new(@tasks).serializable_hash[:data].map { |task| task[:attributes] }
@@ -7,9 +6,9 @@ class Api::V1::TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
-    if @task
-      render json: TaskSerializer.new(@task).serializable_hash[:data][:attributes], status: :ok
-    end
+    return unless @task
+
+    render json: TaskSerializer.new(@task).serializable_hash[:data][:attributes], status: :ok
   end
 
   def create
@@ -17,7 +16,7 @@ class Api::V1::TasksController < ApplicationController
     if @task.save
       render json: TaskSerializer.new(@task).serializable_hash[:data][:attributes], status: :created
     else
-      render json: {errors: @task.errors.full_messages}, status: :unprocessable_entity
+      render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -26,8 +25,13 @@ class Api::V1::TasksController < ApplicationController
     if @task.update(task_oarams)
       render json: TaskSerializer.new(@task).serializable_hash[:data][:attributes], status: :ok
     else
-      render json: {errors: @task.errors.full_messages}
+      render json: { errors: @task.errors.full_messages }
     end
   end
 
+  private
+
+  def task_params
+    params.permit(:title, :body, :user_id)
+  end
 end
